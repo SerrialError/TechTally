@@ -6,8 +6,8 @@ const app = express();
 const port = 3001;
 
 const pool = new Pool({
-  user: 'connor',
-  password: 'Cofland#!1234',
+  user: 'user',
+  password: 'password',
   host: 'localhost',
   port: 5433,
   database: 'scouting-db'
