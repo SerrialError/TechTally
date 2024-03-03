@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=scouting-db
+      - POSTGRES_USER=connor
+      - POSTGRES_PASSWORD=Cofland#!1234
+    ports:
+      - 5433:5432
+volumes:
+  postgres-db:
