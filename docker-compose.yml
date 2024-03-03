@@ -5,10 +5,10 @@ services:
     volumes:
       - postgres-db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=scouting-db
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=medusa-db
+      - POSTGRES_USER=yourusername
+      - POSTGRES_PASSWORD=yourpassword
     ports:
-      - 5433:5432
+      - 5432:5432
 volumes:
   postgres-db:
