@@ -1,4 +1,5 @@
 # TechTally
+<<<<<<< HEAD
 
 ## How to Install
 
@@ -40,3 +41,12 @@ Then in a seperate terminal go to the scouting-app folder and run
 npm run dev
 ```
 Now go to your web browser and type localhost:3000.
+=======
+A Robotics Scouting app that keeps track of the parts for robots.
+
+## Tech Stack
+Uses:
+- React
+- NodeJS
+- PostGres
+>>>>>>> feb20ed4727e32755273e9833e336fe6e9547f7d
