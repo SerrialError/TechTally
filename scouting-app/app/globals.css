@@ -1,4 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Add this CSS to your global styles or in a separate CSS file */
+#image-dropdown {
+  display: inline-block;
+  border: 1px solid;
+}
+
+#image-dropdown .img_holder {
+  cursor: pointer;
+}
+
+#image-dropdown img.flagimgs {
+  width: 50px; /* Adjust width as needed */
+  height: 50px; /* Automatically adjust height to maintain aspect ratio */
+}
+
+#image-dropdown span.iTEXT {
+  position: relative;
+  top: -8px;
+}
 
