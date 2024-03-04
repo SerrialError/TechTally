@@ -39,6 +39,12 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS drivetrains (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(255) NOT NULL,
+  user_id INT REFERENCES users(id) -- Foreign key referencing the users table
+);
 ```
 to the console. Now exit the console by typing \d or exit.
 
