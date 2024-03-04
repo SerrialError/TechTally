@@ -15,7 +15,7 @@ const Home: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push('/dashboard');
+    router.push('/teaminformation');
     try {
       await axios.post('http://localhost:3001/api/users', { name: inputValue });
       setInputValue('');

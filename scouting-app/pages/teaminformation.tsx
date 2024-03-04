@@ -1,12 +1,24 @@
 // pages/dashboard.tsx
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const Dashboard: React.FC = () => {
+const teaminformation: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false); // Set isOpen to false at the start
   const [selectedDrivetrain, setSelectedDrivetrain] = useState<string>('');
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen); // Toggle the dropdown state
+  };
+
+  const handleSaveDrivetrain = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      // Send the selected drivetrain to the backend to save it to the database
+      await axios.post('http://localhost:3001/api/drivetrains', { drivetrain: selectedDrivetrain });
+      console.log('Drivetrain saved successfully!');
+    } catch (error) {
+      console.error('Error saving drivetrain:', error);
+    }
   };
 
   const handleDrivetrainChange = (drivetrain: string) => {
@@ -16,7 +28,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1>Team Information</h1>
       <div
         id="image-dropdown"
         style={{
@@ -48,6 +60,7 @@ const Dashboard: React.FC = () => {
           <span className="iTEXT">H-Drive</span>
         </div>
       </div>
+      <button onClick={handleSaveDrivetrain}>Save Drivetrain</button>
       {selectedDrivetrain && (
         <div>
           <h3>Selected Drivetrain: {selectedDrivetrain}</h3>
@@ -72,4 +85,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default teaminformation;

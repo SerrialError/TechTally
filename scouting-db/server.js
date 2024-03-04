@@ -25,6 +25,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Endpoint to handle inserting drivetrain data
+app.post('/api/drivetrains', async (req, res) => {
+  const { drivetrain } = req.body;
+  try {
+    const client = await pool.connect();
+    const result = await client.query('INSERT INTO drivetrains (type) VALUES ($1) RETURNING *', [drivetrain]);
+    const insertedDrivetrain = result.rows[0];
+    client.release();
+    res.json({ success: true, drivetrain: insertedDrivetrain });
+  } catch (error) {
+    console.error('Error inserting drivetrain data:', error);
+    res.status(500).json({ success: false, error: 'Error inserting drivetrain data' });
+  }
+});
+
 // Endpoint to handle inserting data
 app.post('/api/users', async (req, res) => {
   const { name } = req.body;
