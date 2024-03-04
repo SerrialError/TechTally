@@ -13,11 +13,13 @@ Uses:
 Install [docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) to run the postgres database.
 You also have to install [nodejs and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to run the project.
 To make a table in the database I would reccomend installing [postgres](https://www.postgresql.org/download/).
-Now run -
+Now go to the scouting-app folder and run
 ```
-npm install cors
-npm install express
-npm install pg
+npm install
+```
+Then go to the scouting-db folder and run
+```
+npm install
 ```
 ### Part 2: Start the Database and Create a Table
 
