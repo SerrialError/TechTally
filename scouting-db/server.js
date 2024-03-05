@@ -16,14 +16,8 @@ const pool = new Pool({
 // Middleware to parse JSON
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000' // Allow requests from your Next.js app's origin
+  origin: '*' // Allow requests from your Next.js app's origin
 }));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // Endpoint to handle inserting drivetrain data
 app.post('/api/drivetrains', async (req, res) => {
@@ -54,6 +48,20 @@ app.post('/api/users', async (req, res) => {
     res.status(500).json({ success: false, error: 'Error inserting data' });
   }
 });
+app.get('/api/search', async (req, res) => {
+  const { q } = req.query;
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM teams WHERE name ILIKE $1 OR drivetrain ILIKE $1', [`%${q}%`]);
+    const searchResults = result.rows;
+    client.release();
+    res.json(searchResults);
+  } catch (error) {
+    console.error('Error searching teams:', error);
+    res.status(500).json({ error: 'Error searching teams' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
