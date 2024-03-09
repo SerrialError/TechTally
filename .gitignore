@@ -9,6 +9,8 @@ docker-compose.yml
 /scouting-app/.pnp
 /scouting-app/.pnp.js
 /scouting-app/.yarn/install-state.gz
+/scouting-db/node_modules
+/scouting-app/.env
 
 # testing
 /scouting-app/coverage
@@ -38,3 +40,6 @@ docker-compose.yml
 # typescript
 /scouting-app/*.tsbuildinfo
 /scouting-app/next-env.d.ts
+
+.env
+node_modules
