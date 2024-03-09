@@ -29,22 +29,24 @@ docker-compose up -d
 ```
 then run the command -
 ```
-psql -h localhost -p 5433 -U user -d scouting-db
+mysql -h localhost -p 5433 -U user -d scouting-db
 ```
 it will then ask you for a password, the password is password.
 *FYI: If you want to change the username and password you can edit the docker-compose file.*
 Now type in -
 ```
 CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS drivetrains (
-  id SERIAL PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   type VARCHAR(255) NOT NULL,
-  user_id INT REFERENCES users(id) -- Foreign key referencing the users table
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
 ```
 to the console. Now exit the console by typing \d or exit.
 
