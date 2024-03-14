@@ -14,7 +14,7 @@ const teaminformation: React.FC = () => {
     e.preventDefault();
     try {
       // Send the selected drivetrain to the backend to save it to the database
-      await axios.post('http://localhost:3001/api/drivetrains', { drivetrain: selectedDrivetrain });
+      await axios.post('https://techtally.silvsam.com/api/drivetrains', { drivetrain: selectedDrivetrain });
       console.log('Drivetrain saved successfully!');
     } catch (error) {
       console.error('Error saving drivetrain:', error);

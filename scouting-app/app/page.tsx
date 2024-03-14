@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     e.preventDefault();
     router.push('/teaminformation');
     try {
-      await axios.post('http://localhost:3001/api/users', { name: inputValue });
+      await axios.post('https://techtally.silvsam.com/api/users', { name: inputValue });
       setInputValue('');
       console.log('Data inserted successfully!');
     } catch (error) {

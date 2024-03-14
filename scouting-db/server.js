@@ -18,60 +18,45 @@ app.use(
 );
 
 // NOTE: https://sidorares.github.io/node-mysql2/docs
-
-// Endpoint to handle inserting drivetrain data
-app.post("/api/drivetrains", async (req, res) => {
+app.post('/api/drivetrains', async (req, res) => {
   const { drivetrain } = req.body;
   try {
-    console.log(drivetrain);
-    const result = await dbCon.query(
-      "INSERT INTO drivetrains (type) VALUES (?)",
-      [drivetrain]
-    );
-    const insertedDrivetrain = result[0];
-    res.json({
-      success: true,
-      drivetrain: { id: insertedDrivetrain.insertId, drivetrain: drivetrain },
-    });
+    const client = await pool.connect();
+    const result = await client.query('INSERT INTO drivetrains (type) VALUES ($1) RETURNING *', [drivetrain]);
+    const insertedDrivetrain = result.rows[0];
+    client.release();
+    res.json({ success: true, drivetrain: insertedDrivetrain });
   } catch (error) {
-    console.error("Error inserting drivetrain data:", error);
-    res
-      .status(500)
-      .json({ success: false, error: "Error inserting drivetrain data" });
+    console.error('Error inserting drivetrain data:', error);
+    res.status(500).json({ success: false, error: 'Error inserting drivetrain data' });
   }
 });
 
 // Endpoint to handle inserting data
-app.post("/api/users", async (req, res) => {
+app.post('/api/users', async (req, res) => {
   const { name } = req.body;
   try {
-    const result = await dbCon.query("INSERT INTO users (name) VALUES (?)", [
-      name,
-    ]);
-    const insertedUser = {
-      id: result.insertId,
-      name: name,
-    };
+    const client = await pool.connect();
+    const result = await client.query('INSERT INTO users (name) VALUES ($1) RETURNING *', [name]);
+    const insertedUser = result.rows[0];
+    client.release();
     res.json({ success: true, user: insertedUser });
   } catch (error) {
-    console.error("Error inserting data:", error);
-    res.status(500).json({ success: false, error: "Error inserting data" });
+    console.error('Error inserting data:', error);
+    res.status(500).json({ success: false, error: 'Error inserting data' });
   }
 });
-
-app.get("/api/search", async (req, res) => {
+app.get('/api/search', async (req, res) => {
   const { q } = req.query;
   try {
-    const result = await dbCon.query(
-      "SELECT * FROM users JOIN drivetrains ON users.user_id = drivetrains.user_id WHERE users.name LIKE ? OR drivetrain.type LIKE ?",
-      [`%${q}%`, `%${q}%`]
-    );
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM teams WHERE name ILIKE $1 OR drivetrain ILIKE $1', [`%${q}%`]);
     const searchResults = result.rows;
     client.release();
     res.json(searchResults);
   } catch (error) {
-    console.error("Error searching teams:", error);
-    res.status(500).json({ error: "Error searching teams" });
+    console.error('Error searching teams:', error);
+    res.status(500).json({ error: 'Error searching teams' });
   }
 });
 
