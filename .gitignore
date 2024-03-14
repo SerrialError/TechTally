@@ -5,10 +5,13 @@ docker-compose.yml
 /merch-shop
 
 # dependencies
+/scouting-app/token
 /scouting-app/node_modules
 /scouting-app/.pnp
 /scouting-app/.pnp.js
 /scouting-app/.yarn/install-state.gz
+/scouting-db/.env
+/scouting-db/server-ca.pem
 /scouting-db/node_modules
 /scouting-app/.env
 
